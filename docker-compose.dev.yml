@@ -4,18 +4,20 @@ services:
     build:
       context: .
       dockerfile: Dockerfile
+      args:
+        APACHE_DOCUMENT_ROOT: /var/www/html/public
     container_name: "${NAME}_web"
     environment:
       - NETTE_DEBUG=true
     volumes:
       - ../:/var/www/html/
     networks:
-      - ${NAME}_net
+      - common_network
     ports:
       - ${PORT_WEB}:80
 
   mariadb:
-    # Slow first run (CREATING DB) YOU MUST WAIT!!!
+    # Fucking slow first run (CREATING DB) YOU MUST WAIT 30min!!!
     image: mariadb:10.5
     container_name: "${NAME}_db"
     command:
@@ -26,13 +28,12 @@ services:
       MYSQL_PASSWORD: caraculo
       MYSQL_ROOT_PASSWORD: caraculo
       MYSQL_USER: user
-      # Uncomment following 2 lines if you want to access mariadb from outside
       #    ports:
-      #      - ${PORT_DB}:3306
+      #      - 50136:3306
     volumes:
       - ./mariadb_data:/var/lib/mysql
     networks:
-      - ${NAME}_net
+      - common_network
 
   phpmyadmin:
     image: phpmyadmin/phpmyadmin:latest
@@ -45,9 +46,9 @@ services:
     ports:
       - ${PORT_PHPMYADMIN}:80
     networks:
-      - ${NAME}_net
+      - common_network
     logging:
       driver: json-file
 
 networks:
-  apirest_net:
+  common_network:
