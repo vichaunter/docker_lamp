@@ -24,7 +24,7 @@ Also because is much easier to just run `make start`, than caring about everythi
 
 ## How to use it
 
-The main target, is to have a subfolder called `docker` (or any other fancy name you want) inside your project `[root_path]`, that will live together with your project and you can update and manage (even i'm using it for CI/CD).
+The main target, is **to have a subfolder** called `docker` (or any other fancy name you want) inside your project `[root_path]`, that will live together with your project and you can update and manage (even i'm using it for CI/CD).
 
 So, the first step, will be to clone this project inside your main project folder:
 ```
@@ -42,11 +42,21 @@ PUBLIC_FOLDER=public
 
 Where you just need to replace values for what you need for your project.
 
+> !! Remember
+> To make it work your web public folder must be next to the docker folder in the tree
+> ```
+> -- Root
+>      |_ www
+>      |_ docker
+> ```
+
+
+
 > I did it like this, because this way, you can have more than one projects running at once, just be sure to not collide the name and ports and all should be fine.
 
 Next and last step if you have properly installed docker (if not go under, i left you how for debian/ubuntu), is to run from inside docker folder:
 ```
-make run
+make start
 ```
 
 It can take a while, give it time due it will compile php extensions (only the first time).
