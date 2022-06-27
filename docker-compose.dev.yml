@@ -1,11 +1,11 @@
-version: '3.6'
+version: "3.6"
 services:
   web:
     build:
       context: .
       dockerfile: Dockerfile
       args:
-        APACHE_DOCUMENT_ROOT: /var/www/html/public
+        APACHE_DOCUMENT_ROOT: /var/www/html/${PUBLIC_FOLDER}
     container_name: "${NAME}_web"
     environment:
       - NETTE_DEBUG=true
@@ -39,10 +39,10 @@ services:
     image: phpmyadmin/phpmyadmin:latest
     container_name: "${NAME}_phpmyadmin"
     environment:
-      PHPMYADMIN_HTTPS: 'false'
-      PMA_ARBITRARY: '1'
+      PHPMYADMIN_HTTPS: "false"
+      PMA_ARBITRARY: "1"
       PMA_HOST: mariadb
-      PMA_PORT: '3306'
+      PMA_PORT: "3306"
     ports:
       - ${PORT_PHPMYADMIN}:80
     networks:
